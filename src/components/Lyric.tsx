@@ -1,12 +1,11 @@
-import { useMemoizedFn } from "ahooks";
 import React, {
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import { LyricItemType } from "san-lyric/dist/types/components/Lyric";
+import { findLastIndex } from 'ramda'
 
 interface ILyricProps {
   lyrics: LyricItemType[];
@@ -81,9 +80,7 @@ const Lyric = ({
 
     const currentTime = Math.floor(player.currentTime * 1000);
 
-    const playCurrent = lyricsRef.current.findLastIndex(
-      (item) => currentTime >= item.time
-    );
+    const playCurrent = findLastIndex((item: { time: number; }) => currentTime >= item.time, lyricsRef.current);
     if (rootRef.current && beforeContainerRef.current && containerRef.current) {
       const offsetTop =
         (rootRef.current.children[playCurrent] as HTMLDivElement)?.offsetTop ??

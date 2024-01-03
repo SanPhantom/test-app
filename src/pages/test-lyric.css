@@ -1,7 +1,4 @@
-html,
-body {
-  font-family: serif, sans-serif;
-}
+
 
 #root {
   width: 100vw;
@@ -10,11 +7,12 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #eaeef1;
-
+  padding-right: 24px;
+  padding-left: 24px;
 }
 
 .box-shadow {
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0 3px 12px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.85)
 }
@@ -33,7 +31,8 @@ body {
 
 .layout {
   width: 1280px;
-  height: 1080px;
+  height: 90%;
+  max-height: 960px;
   box-sizing: border-box;
   padding: 1em;
   display: flex;
@@ -68,13 +67,11 @@ body {
   color: #333333;
   border-radius: 8px;
   font-weight: 500;
-  font-family: serif, sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   padding: 1em 12px;
 }
 
 .layout-header .search-button {
-  font-weight: 600;
   height: 38px;
   border-radius: 8px;
   padding: 0;
@@ -97,6 +94,19 @@ body {
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
+}
+
+.layout-container {
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 16px;
+}
+
+.layout-control {
+  height: 72px;
 }
 
 /* result */
@@ -126,7 +136,6 @@ body {
 
 .layout-result-item:hover {
   background: #f1f3f5;
-
 }
 
 .result-name {
@@ -134,18 +143,26 @@ body {
   font-weight: 600;
   color: #636e72;
   line-height: 26px;
-  letter-spacing: 0.5px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
 }
 
 .result-singer {
   font-size: 12px;
   line-height: 20px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
 }
 
 /* content */
 .layout-new-lyric {
   flex: 1;
-  height: 100%;
   overflow: auto;
 }
 
@@ -159,6 +176,8 @@ body {
   flex: 1;
   overflow: auto;
   text-align: center;
+  padding-top: 40%;
+  padding-bottom: 40%;
 }
 
 .lyric-container::-webkit-scrollbar {
@@ -174,9 +193,15 @@ body {
 }
 
 .lyric {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   color: #636e72;
+}
+
+.current-lyric {
+  padding-bottom: 8px;
+  padding-top: 8px;
+  user-select: none;
 }
 
 .text {
@@ -186,8 +211,8 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   background-size: 0 100%;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   color: #636e72;
 }
 

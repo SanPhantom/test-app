@@ -25,6 +25,7 @@
     "react-plock": "^3.0.2",
     "react-virtualized": "^9.22.5",
     "react-virtualized-image-measurer": "^0.4.0",
+    "san-lyric": "^0.2.0",
     "vconsole": "^3.15.1"
   },
   "devDependencies": {
