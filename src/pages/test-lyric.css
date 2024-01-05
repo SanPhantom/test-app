@@ -7,6 +7,9 @@
   background-color: #eaeef1;
   padding-right: 24px;
   padding-left: 24px;
+
+  --whiteShadow: -2px -2px 8px rgba(206, 212, 218, .5);
+  --blackShadow: 2px 2px 8px rgba(110, 40, 40, .2);
 }
 
 .box-shadow {
@@ -245,4 +248,42 @@
   100% {
     background-size: 100% 100%;
   }
+}
+
+progress {
+  position: relative;
+  height: 4px;
+  -webkit-appearance: none;
+}
+
+::-webkit-progress-bar {
+  background-color: #ffffff;
+  border-radius: 2px;
+  height: 4px;
+  box-shadow: var(--blackShadow), var(--whiteShadow);
+}
+
+::-webkit-progress-value {
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  transition: all 100ms linear;
+}
+
+.progress-text {
+  width: 40px;
+  text-align: center;
+}
+
+.progress-thunk {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(#42e695, #3bb2b8);
+  border-radius: 50%;
+  z-index: 10;
+  transition: left 30ms linear;
+  cursor: pointer;
 }

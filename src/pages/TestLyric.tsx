@@ -7,6 +7,8 @@ import {
   IoPlaySkipBackOutline,
   IoPlaySkipForwardOutline,
 } from "react-icons/io5";
+import Progress from "../components/Music/common/Progress";
+import LoginModal from "../components/Music/LoginModal";
 
 const TestLyric = () => {
   return (
@@ -21,17 +23,25 @@ const TestLyric = () => {
             <SanLyric />
           </div>
           <div className="box-shadow layout-control">
+            <div style={{ flex: 1 }}>
+              <Progress />
+            </div>
             <div className="control-box">
               <div className="control-btn">
                 <IoPlaySkipBackOutline fontSize={24} fontWeight={600} />
               </div>
-
-              <IoPauseCircleOutline fontSize={48} fontWeight={600} />
-              <IoPlaySkipForwardOutline fontSize={24} fontWeight={600} />
+              <div className="control-btn">
+                <IoPauseCircleOutline fontSize={48} fontWeight={600} />
+              </div>
+              <div className="control-btn">
+                <IoPlaySkipForwardOutline fontSize={24} fontWeight={600} />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <LoginModal open />
     </div>
   );
 };
