@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import useMusicPlayer, { useProgress } from '../../../atoms/account.atom';
-import { findLastIndex } from 'ramda';
+
 import { formatYRC } from '../../../utils/lyric';
+import useCurrentLine from '../../../hooks/useCurrentLine';
 
 const SanLyric = () => {
   const { lyric, transLyric } = useMusicPlayer();
@@ -14,12 +15,7 @@ const SanLyric = () => {
     [lyric, transLyric]
   );
 
-  const currentLine = useMemo(() => {
-    return findLastIndex(
-      (lyric) => lyric.timestamp <= currentTime,
-      currentLyrics
-    );
-  }, [currentTime, currentLyrics]);
+  const currentLine = useCurrentLine(currentLyrics);
 
   useEffect(() => {
     if (rootRef.current && currentLine >= 0) {

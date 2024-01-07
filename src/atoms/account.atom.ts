@@ -18,12 +18,18 @@ export const transLyricAtom = atom('');
 
 export const isYRCAtom = atom(false);
 
+export const currentPlayIdAtom = atom('');
+
+export const isPlayingAtom = atom(false);
+
 export const useProgress = (interval?: number) => {
   const duration = useAtomValue(durationAtom);
 
   const [currentTime, setCurrentTime] = useState(0);
 
   const [refreshTime, setRefreshTime] = useState(interval ?? 1);
+
+  const setPlayingStatus = useSetAtom(isPlayingAtom);
 
   const clear = useInterval(() => {
     if (player.played.length) {
@@ -35,10 +41,12 @@ export const useProgress = (interval?: number) => {
   useEffect(() => {
     player.addEventListener('playing', () => {
       setRefreshTime(interval ?? 1);
+      setPlayingStatus(true);
     });
 
     player.addEventListener('pause', () => {
       setRefreshTime(0);
+      setPlayingStatus(false);
       clear();
     });
 
@@ -46,6 +54,7 @@ export const useProgress = (interval?: number) => {
       player.currentTime = 0;
       setCurrentTime(0);
       setRefreshTime(0);
+      setPlayingStatus(false);
       clear();
     });
   }, [interval]);
@@ -64,8 +73,9 @@ const useMusicPlayer = () => {
   const [playlist, setPlaylist] = useAtom(playlistAtom);
 
   const updateDuration = useSetAtom(durationAtom);
+  const isPlaying = useAtomValue(isPlayingAtom);
 
-  const [currentPlayId, setCurrentPlayId] = useState('');
+  const [currentPlayId, setCurrentPlayId] = useAtom(currentPlayIdAtom);
 
   const [isYRC, setIsYRC] = useAtom(isYRCAtom);
   const [lyric, setLyric] = useAtom(lyricAtom);
@@ -122,6 +132,7 @@ const useMusicPlayer = () => {
       isYRC,
       lyric,
       transLyric,
+      isPlaying,
     }),
     [
       player,
@@ -134,6 +145,7 @@ const useMusicPlayer = () => {
       isYRC,
       lyric,
       transLyric,
+      isPlaying,
     ]
   );
 };

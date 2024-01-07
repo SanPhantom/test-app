@@ -57,6 +57,57 @@ export const deleteLast = (arr: Array<string>, num: number = 1) => {
   return new_arr;
 };
 
+type LRCLyricType = {
+  timestamp: number;
+  text: string;
+  transText: string;
+};
+
+export const formatLRC = (
+  lyric: string,
+  transLyric: string = ''
+): LRCLyricType[] => {
+  const lyricArray = lyric.split('\n');
+  const transLyricArray = transLyric.split('\n');
+  lyricArray.splice(-1, 1);
+  transLyricArray.splice(-1, 1);
+
+  const lyricPattern = /(\d+):(\d+)\.(\d+)]+(.*)/;
+
+  const transTextArray = transLyricArray.map((item) => {
+    try {
+      const [_, m, s, d, text] = item.match(lyricPattern)!;
+      return {
+        timestamp: (Number(m) * 60 + Number(s)) * 1000 + Number(d),
+        text,
+      };
+    } catch {
+      return {};
+    }
+  });
+
+  return lyricArray.map((item) => {
+    try {
+      const [_, m, s, d, text] = item.match(lyricPattern)!;
+      const timestamp = (Number(m) * 60 + Number(s)) * 1000 + Number(d);
+      return {
+        timestamp,
+        text,
+        transText:
+          transTextArray.find((trans) => trans.timestamp === timestamp)?.text ??
+          '',
+      };
+    } catch {
+      const itemObj = JSON.parse(item);
+      return {
+        timestamp: Number(itemObj.t),
+        text: itemObj.c.map((i: Record<string, any>) => i.tx).join('') ?? '',
+        transText: '',
+      };
+    }
+  });
+};
+
 type YRCLyricType = {
   timestamp: number;
   text: string;
