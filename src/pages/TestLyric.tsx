@@ -18,7 +18,6 @@ const TestLyric = () => {
   const [cookie] = useLocalStorage('music_cookie');
 
   useEffect(() => {
-    console.log({ cookie });
     if (cookie) {
       document.cookie = cookie;
     }

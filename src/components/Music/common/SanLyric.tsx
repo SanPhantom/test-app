@@ -1,18 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { isString, toArray } from 'lodash';
 import useMusicPlayer, { useProgress } from '../../../atoms/account.atom';
 import { findLastIndex } from 'ramda';
-import { deleteLast, formatYRC } from '../../../utils/lyric';
+import { formatYRC } from '../../../utils/lyric';
 
 const SanLyric = () => {
   const { lyric, transLyric } = useMusicPlayer();
   const { currentTime } = useProgress();
 
   const rootRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    console.log(formatYRC(lyric, transLyric));
-  }, [lyric, transLyric]);
 
   const currentLyrics = useMemo(
     () => formatYRC(lyric, transLyric),
@@ -86,7 +81,7 @@ const SanLyric = () => {
     <div className="lyric-container" ref={rootRef}>
       <div className="lyric-list">
         {currentLyrics.map((item, index) => (
-          <div className="current-lyric">
+          <div className="current-lyric" key={item.timestamp}>
             {item.children ? (
               <div>
                 <div>

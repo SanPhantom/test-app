@@ -46,7 +46,6 @@ const useUser = () => {
     (async () => {
       if (cookie) {
         const data: Record<string, any> = await request.post('/user/account');
-        console.log({ data });
 
         setAccount(pickAll(['userId', 'avatarUrl', 'nickname'], data.profile));
       }

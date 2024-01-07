@@ -83,7 +83,7 @@ export const formatYRC = (
   transLyricArray.splice(-1, 1);
   const lyricPattern = /\[(\d+),(\d+)]/;
   const transLyricPattern = /(\d+):(\d+)\.(\d+)]+(.*)/;
-  console.log({ transLyricArray });
+
   const transTextArray = transLyricArray.map((item) => {
     const [_, m, s, d, text] = item.match(transLyricPattern)!;
 

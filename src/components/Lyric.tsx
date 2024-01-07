@@ -1,13 +1,7 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { LyricItemType } from 'san-lyric/dist/types/components/Lyric';
 import { findLastIndex } from 'ramda';
-import useMusicPlayer, { useProgress } from '../atoms/account.atom';
+import useMusicPlayer from '../atoms/account.atom';
 
 interface ILyricProps {
   lyrics: LyricItemType[];
@@ -29,7 +23,6 @@ const Lyric = ({
   selectBgColor = 'transparent',
 }: ILyricProps) => {
   const { player } = useMusicPlayer();
-  const { currentTime } = useProgress();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const beforeContainerRef = useRef<HTMLDivElement>(null);
@@ -114,7 +107,6 @@ const Lyric = ({
   useEffect(() => {
     if (player) {
       player.addEventListener('playing', () => {
-        console.log('123');
         animationRef.current = window.requestAnimationFrame(render);
       });
     }
