@@ -1,5 +1,5 @@
 import { time2Timestamp } from './time';
-import { splitEvery, tryCatch } from 'ramda';
+import { splitEvery } from 'ramda';
 
 /**
  * 判断是否跳过歌词数据
@@ -16,10 +16,7 @@ export const judgeLyric = (str: string) => {
   if (str.startsWith('[al:')) {
     return false;
   }
-  if (str.startsWith('[by:')) {
-    return false;
-  }
-  return true;
+  return !str.startsWith('[by:');
 };
 
 /**

@@ -1,10 +1,9 @@
 import { atom } from 'jotai/index';
 import { useCallback, useEffect, useMemo } from 'react';
 import request from '../configs/axios.config';
-import { useCookies } from 'react-cookie';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useAtom } from 'jotai';
-import { pick, pickAll } from 'ramda';
+import { pickAll } from 'ramda';
 
 export type PhoneLoginType = {
   phone: string;
