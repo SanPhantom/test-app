@@ -1,8 +1,8 @@
-import { useCallback, useMemo } from "react";
-import { useProgress } from "../../../atoms/account.atom";
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useProgress } from '../../../atoms/account.atom';
 
 const Progress = () => {
-  const { currentTime, duration } = useProgress();
+  const { currentTime, duration } = useProgress(1000);
 
   const addZero = useCallback((num: number) => {
     return num < 10 ? `0${num}` : num;
@@ -22,39 +22,45 @@ const Progress = () => {
     return `${addZero(min)}:${addZero(second)}`;
   }, [duration]);
 
-  const thunkLeft = useMemo(() => {
-    const radio = (currentTime / duration) * 100;
-    return radio === 0 ? 0 : `${radio}%`;
-  }, [currentTime, duration]);
-
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
         flex: 1,
         gap: 16,
       }}
     >
       <label
         className="progress-text"
-        style={{ fontSize: 12, fontWeight: 400 }}
+        style={{
+          fontSize: 12,
+          fontWeight: 400,
+        }}
       >
         {current}
       </label>
-      <div style={{ position: "relative", flex: 1, display: "flex" }}>
+      <div
+        style={{
+          position: 'relative',
+          flex: 1,
+          display: 'flex',
+        }}
+      >
         <progress
           max={duration}
           value={currentTime}
           style={{ flex: 1 }}
         ></progress>
-        <div className="progress-thunk" style={{ left: thunkLeft }}></div>
       </div>
 
       <label
         className="progress-text"
-        style={{ fontSize: 12, fontWeight: 400 }}
+        style={{
+          fontSize: 12,
+          fontWeight: 400,
+        }}
       >
         {maxTime}
       </label>

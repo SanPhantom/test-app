@@ -21,7 +21,7 @@ const useAtomProxy = (): [Getter, Setter] => {
   return useAtomCallback(
     useCallback((get, set) => {
       return [get, set] as [Getter, Setter];
-    }, [])
+    }, []),
   )();
 };
 

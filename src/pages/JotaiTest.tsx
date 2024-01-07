@@ -35,7 +35,7 @@ const listAtom = atom(
         break;
       }
     }
-  }
+  },
 );
 
 const listAtomsAtom = splitAtom(listAtom);

@@ -22,7 +22,7 @@ import {
 
 declare module "react" {
   function forwardRef<T, P = {}>(
-    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null,
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
 
@@ -54,7 +54,7 @@ export const isEmptyOrNil: (param?: any) => typeof param = anyPass([
 
 const CommonMasonry = <T extends Record<string, any>>(
   props: CommonMasonryProps<T>,
-  ref: ForwardedRef<MasonryRef>
+  ref: ForwardedRef<MasonryRef>,
 ) => {
   const {
     col = 2,
@@ -118,7 +118,7 @@ const CommonMasonry = <T extends Record<string, any>>(
         </CellMeasurer>
       );
     },
-    [masonryCache, colWidth, itemRender, list]
+    [masonryCache, colWidth, itemRender, list],
   );
 
   useEffect(() => {

@@ -1,22 +1,20 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import request from "../configs/axios.config";
-import { useInterval } from "ahooks";
-import { isEmpty, isNil } from "ramda";
-
-export const AccountAtom = atom({});
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import request from '../configs/axios.config';
+import { useInterval } from 'ahooks';
+import { isEmpty, isNil } from 'ramda';
 
 export const player = new Audio();
 
 export const playlistAtom = atom<any[]>([]);
 
-export const searchAtom = atom("");
+export const searchAtom = atom('');
 
 export const durationAtom = atom(0);
 
-export const lyricAtom = atom("");
+export const lyricAtom = atom('');
 
-export const transLyricAtom = atom("");
+export const transLyricAtom = atom('');
 
 export const isYRCAtom = atom(false);
 
@@ -35,16 +33,16 @@ export const useProgress = (interval?: number) => {
   }, refreshTime);
 
   useEffect(() => {
-    player.addEventListener("pause", () => {
+    player.addEventListener('playing', () => {
       setRefreshTime(interval ?? 1);
     });
 
-    player.addEventListener("pause", () => {
+    player.addEventListener('pause', () => {
       setRefreshTime(0);
       clear();
     });
 
-    player.addEventListener("ended", () => {
+    player.addEventListener('ended', () => {
       player.currentTime = 0;
       setCurrentTime(0);
       setRefreshTime(0);
@@ -67,14 +65,14 @@ const useMusicPlayer = () => {
 
   const updateDuration = useSetAtom(durationAtom);
 
-  const [currentPlayId, setCurrentPlayId] = useState("");
+  const [currentPlayId, setCurrentPlayId] = useState('');
 
   const [isYRC, setIsYRC] = useAtom(isYRCAtom);
   const [lyric, setLyric] = useAtom(lyricAtom);
   const [transLyric, setTransLyric] = useAtom(transLyricAtom);
 
   const searchMusic = useCallback(async () => {
-    const { result } = await request.get<any, any>("/search", {
+    const { result } = await request.get<any, any>('/search', {
       params: {
         keywords: search,
       },
@@ -84,7 +82,7 @@ const useMusicPlayer = () => {
   }, [search, setPlaylist]);
 
   const playMusic = useCallback(async (item: any) => {
-    const { data } = await request.get<any, any>("/song/url", {
+    const { data } = await request.get<any, any>('/song/url', {
       params: { id: item.id },
     });
     player.src = data[0].url;
@@ -97,22 +95,20 @@ const useMusicPlayer = () => {
   useEffect(() => {
     (async () => {
       if (!(isEmpty(currentPlayId) || isNil(currentPlayId))) {
-        const lrcData = await request.get<any, any>("/lyric/new", {
+        const lrcData = await request.get<any, any>('/lyric/new', {
           params: {
             id: currentPlayId,
           },
         });
         const is = !(isEmpty(lrcData?.yrc) || isNil(lrcData?.yrc));
         setIsYRC(is);
-        setLyric(is ? lrcData.yrc?.lyric ?? "" : lrcData.lrc?.lyric ?? "");
-        setTransLyric(is ? "" : lrcData?.tlyric?.lyric ?? "");
+        setLyric(is ? lrcData.yrc?.lyric ?? '' : lrcData.lrc?.lyric ?? '');
+        setTransLyric(
+          is ? lrcData.ytlrc?.lyric ?? '' : lrcData?.tlyric?.lyric ?? ''
+        );
       }
     })();
   }, [currentPlayId]);
-
-  useEffect(() => {
-    console.log({ currentLyric: lyric, isYRC });
-  }, [lyric, isYRC]);
 
   return useMemo(
     () => ({

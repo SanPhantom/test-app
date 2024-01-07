@@ -10,7 +10,7 @@ interface AutoSizerMasonryProps<T extends Record<string, any>>
 }
 
 const AutoSizerMasonry = <T extends Record<string, any>>(
-  props: AutoSizerMasonryProps<T>
+  props: AutoSizerMasonryProps<T>,
 ) => {
   const { targetTop, height = 0, ...masonryProps } = props;
 

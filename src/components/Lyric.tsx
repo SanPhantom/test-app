@@ -1,18 +1,19 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
-} from "react";
-import { LyricItemType } from "san-lyric/dist/types/components/Lyric";
-import { findLastIndex } from 'ramda'
+} from 'react';
+import { LyricItemType } from 'san-lyric/dist/types/components/Lyric';
+import { findLastIndex } from 'ramda';
+import useMusicPlayer, { useProgress } from '../atoms/account.atom';
 
 interface ILyricProps {
   lyrics: LyricItemType[];
   selectedColor?: string;
   color?: string;
   selectBgColor?: string;
-  player: HTMLAudioElement;
 }
 
 const sports = {
@@ -22,22 +23,25 @@ const sports = {
 };
 
 const Lyric = ({
-  player,
   lyrics,
-  selectedColor = "red",
-  color = "black",
-  selectBgColor = "transparent",
+  selectedColor = 'red',
+  color = 'black',
+  selectBgColor = 'transparent',
 }: ILyricProps) => {
+  const { player } = useMusicPlayer();
+  const { currentTime } = useProgress();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const beforeContainerRef = useRef<HTMLDivElement>(null);
   const afterContainerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
+  const [currentLine, setCurrentLine] = useState(-1);
+
   const animationRef = useRef<number | null>(null);
   const scrollAnimationRef = useRef<number | null>(null);
 
-  const [current, setCurrent] = useState(-1);
-  const currentRef = useRef(current);
+  const currentRef = useRef(-1);
   const lyricsRef = useRef(lyrics);
 
   const currentScrollHeightRef = useRef<number>(0);
@@ -78,43 +82,44 @@ const Lyric = ({
   const render = useCallback(() => {
     animationRef.current = window.requestAnimationFrame(render);
 
-    const currentTime = Math.floor(player.currentTime * 1000);
+    const currentLine = findLastIndex(
+      (item: { time: number }) => player.currentTime * 1000 >= item.time,
+      lyricsRef.current
+    );
 
-    const playCurrent = findLastIndex((item: { time: number; }) => currentTime >= item.time, lyricsRef.current);
     if (rootRef.current && beforeContainerRef.current && containerRef.current) {
       const offsetTop =
-        (rootRef.current.children[playCurrent] as HTMLDivElement)?.offsetTop ??
+        (rootRef.current.children[currentLine] as HTMLDivElement)?.offsetTop ??
         0;
       const beforeHeight =
         beforeContainerRef.current.getBoundingClientRect().height;
       const beforeOffsetTop = containerRef.current.getBoundingClientRect().top;
       if (!isLock.current) {
-        if (playCurrent !== currentRef.current) {
+        if (currentLine !== currentRef.current) {
           scrollHeightRef.current = offsetTop - beforeOffsetTop - beforeHeight;
           scrollAnimationRef.current = requestAnimationFrame(scrollLyric);
+          currentRef.current = currentLine;
+          setCurrentLine(currentLine);
         }
-        // containerRef.current.scrollTop =
-        //   offsetTop - beforeOffsetTop - beforeHeight;
       }
     }
-
-    setCurrent(playCurrent);
-  }, [player, lyrics, setCurrent, current]);
+  }, [lyrics]);
 
   useEffect(() => {
     if (lyrics.length) {
-      currentRef.current = current;
       lyricsRef.current = lyrics;
     }
-  }, [current, lyrics]);
+  }, [lyrics]);
 
   useEffect(() => {
     if (player) {
-      player.onplaying = () => {
+      player.addEventListener('playing', () => {
+        console.log('123');
         animationRef.current = window.requestAnimationFrame(render);
-      };
+      });
     }
     return () => {
+      player.removeEventListener('playing', () => {});
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -122,29 +127,29 @@ const Lyric = ({
   }, [player]);
 
   useEffect(() => {
-    containerRef.current?.addEventListener("touchstart", (e) => {
+    containerRef.current?.addEventListener('touchstart', (e) => {
       e.preventDefault();
       if (timer) {
         clearTimeout(timer);
       }
       isLock.current = true;
     });
-    containerRef.current?.addEventListener("touchend", (e) => {
+    containerRef.current?.addEventListener('touchend', (e) => {
       e.preventDefault();
       timer = setTimeout(() => {
         isLock.current = false;
       }, 2000);
     });
-    containerRef.current?.addEventListener("touchcancel", (e) => {
+    containerRef.current?.addEventListener('touchcancel', (e) => {
       e.preventDefault();
       timer = setTimeout(() => {
         isLock.current = false;
       }, 2000);
     });
     return () => {
-      containerRef.current?.removeEventListener("touchstart", () => {});
-      containerRef.current?.removeEventListener("touchend", () => {});
-      containerRef.current?.removeEventListener("touchcancel", () => {});
+      containerRef.current?.removeEventListener('touchstart', () => {});
+      containerRef.current?.removeEventListener('touchend', () => {});
+      containerRef.current?.removeEventListener('touchcancel', () => {});
     };
   }, []);
 
@@ -152,17 +157,18 @@ const Lyric = ({
     <div
       className="lyric-root-container"
       ref={containerRef}
-      style={{ width: "100%", height: "100%", overflow: "auto" }}
+      style={{ width: '100%', height: '100%', overflow: 'auto' }}
     >
-      <div ref={beforeContainerRef} style={{ width: "100%", height: "40%" }} />
+      <div ref={beforeContainerRef} style={{ width: '100%', height: '40%' }} />
       <div ref={rootRef}>
         {lyrics.map((item, index) => (
           <div
-            className={`lyric ${current === index && "active"}`}
+            className={`lyric ${currentLine === index && 'active'}`}
             style={{
-              color: current === index ? selectedColor : color,
-              backgroundColor: current === index ? selectBgColor : undefined,
-              padding: "5px 0",
+              color: currentLine === index ? selectedColor : color,
+              backgroundColor:
+                currentLine === index ? selectBgColor : undefined,
+              padding: '5px 0',
             }}
             key={item.time}
           >
@@ -172,7 +178,7 @@ const Lyric = ({
         ))}
       </div>
 
-      <div ref={afterContainerRef} style={{ width: "100%", height: "40%" }} />
+      <div ref={afterContainerRef} style={{ width: '100%', height: '40%' }} />
     </div>
   );
 };

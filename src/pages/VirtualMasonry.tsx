@@ -39,7 +39,7 @@ const VirtualMasonry = () => {
         console.log("error");
       }
     },
-    [list]
+    [list],
   );
 
   const ItemRender = useCallback(
@@ -51,7 +51,7 @@ const VirtualMasonry = () => {
         />
       );
     },
-    [handleRemoveItem]
+    [handleRemoveItem],
   );
 
   useLayoutEffect(() => {

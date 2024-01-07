@@ -8,14 +8,14 @@
   padding-right: 24px;
   padding-left: 24px;
 
-  --whiteShadow: -2px -2px 8px rgba(206, 212, 218, .5);
-  --blackShadow: 2px 2px 8px rgba(110, 40, 40, .2);
+  --whiteShadow: -2px -2px 8px rgba(206, 212, 218, 0.5);
+  --blackShadow: 2px 2px 8px rgba(110, 40, 40, 0.2);
 }
 
 .box-shadow {
   box-shadow: rgba(0, 0, 0, 0.09) 0 3px 12px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.85)
+  background: rgba(255, 255, 255, 0.85);
 }
 
 ::-webkit-scrollbar {
@@ -195,8 +195,8 @@
   flex: 1;
   overflow: auto;
   text-align: center;
-  padding-top: 40%;
-  padding-bottom: 40%;
+  padding-top: 300px;
+  padding-bottom: 200px;
 }
 
 .lyric-container::-webkit-scrollbar {
@@ -223,16 +223,32 @@
   user-select: none;
 }
 
+.trans-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #636e72;
+  font-family: serif;
+}
+
 .text {
-  background: #636e72 -webkit-linear-gradient(left, var(--primary-color), var(--primary-color)) no-repeat 0 0;
-  -webkit-background: #636e72 -webkit-linear-gradient(left, var(--primary-color), var(--primary-color)) no-repeat 0 0;
+  background: #636e72 -webkit-linear-gradient(
+      left,
+      var(--primary-color),
+      var(--primary-color)
+    ) no-repeat 0 0;
+  -webkit-background: #636e72 -webkit-linear-gradient(
+      left,
+      var(--primary-color),
+      var(--primary-color)
+    ) no-repeat 0 0;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
   background-size: 0 100%;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
   color: #636e72;
+  font-family: serif;
 }
 
 .load {
@@ -272,6 +288,7 @@ progress {
 .progress-text {
   width: 40px;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .progress-thunk {
@@ -286,4 +303,34 @@ progress {
   z-index: 10;
   transition: left 30ms linear;
   cursor: pointer;
+}
+
+.login-btn {
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  user-select: none;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.account-info .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.account-info .nickname {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-family: serif;
+  user-select: none;
 }

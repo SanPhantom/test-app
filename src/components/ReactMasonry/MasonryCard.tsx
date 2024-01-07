@@ -19,7 +19,7 @@ interface MasonryCardProps<T extends PrimitiveAtom<any>>
 }
 
 const MasonryCard = <T extends PrimitiveAtom<any>>(
-  props: MasonryCardProps<T>
+  props: MasonryCardProps<T>,
 ) => {
   const { item: itemAtom, colWidth, index, onRemoveItem } = props;
 
@@ -35,7 +35,7 @@ const MasonryCard = <T extends PrimitiveAtom<any>>(
 
   const curHeight = useMemo(
     () => colWidth * (imgH / imgW),
-    [imgW, imgH, colWidth]
+    [imgW, imgH, colWidth],
   );
 
   const handleUpdateItem = useCallback(() => {

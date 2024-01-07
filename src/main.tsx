@@ -6,7 +6,7 @@ import TestLyric from "./pages/TestLyric";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <App />
-  <TestLyric />
+  <TestLyric />,
 
   // <JotaiTest />
   // <VirtualMasonry />

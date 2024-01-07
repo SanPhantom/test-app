@@ -1,44 +1,74 @@
 <mjml>
-  <mj-head>
-
-  </mj-head>
+  <mj-head> </mj-head>
   <mj-body>
-    <mj-section full-width="full-width" background-color="#ffffff" padding="16px">
+    <mj-section
+      full-width="full-width"
+      background-color="#ffffff"
+      padding="16px"
+    >
       <mj-column width="100%">
         <mj-text align="center">
-          <h1 style="font-weight: 700;">Thank you for your order!</h1>
-          <p style="font-size: 14px;">
-            Your order is being processed
-          </p>
+          <h1 style="font-weight: 700">Thank you for your order!</h1>
+          <p style="font-size: 14px">Your order is being processed</p>
         </mj-text>
-        <mj-button width="100%" height="42px" font-size="14px" padding="0" font-weight="500" border-radius="4px" background-color="#2d2d33">
+        <mj-button
+          width="100%"
+          height="42px"
+          font-size="14px"
+          padding="0"
+          font-weight="500"
+          border-radius="4px"
+          background-color="#2d2d33"
+        >
           View order details
         </mj-button>
       </mj-column>
     </mj-section>
-    <mj-section full-width="full-width" background-color="#eaeaea" padding="4px 0" />
-    <mj-section background-color="#ffffff" full-width="full-width" padding="16px 16px">
+    <mj-section
+      full-width="full-width"
+      background-color="#eaeaea"
+      padding="4px 0"
+    />
+    <mj-section
+      background-color="#ffffff"
+      full-width="full-width"
+      padding="16px 16px"
+    >
       <mj-column width="100%">
         <mj-text font-size="20px" font-weight="600" padding="0 0">
           Order Summary
         </mj-text>
         <mj-table padding="0" padding-top="16px">
           <tr>
-            <td style="font-size: 14px; font-weight: 600;">Order ID</td>
-            <td style="font-size: 14px; font-weight: 400; text-align: right;">#PP1005</td>
+            <td style="font-size: 14px; font-weight: 600">Order ID</td>
+            <td style="font-size: 14px; font-weight: 400; text-align: right">
+              #PP1005
+            </td>
           </tr>
           <tr>
-            <td style="font-size: 14px; font-weight: 600;">Order Date</td>
-            <td style="font-size: 14px; font-weight: 400; text-align: right;">Oct 29, 2023</td>
+            <td style="font-size: 14px; font-weight: 600">Order Date</td>
+            <td style="font-size: 14px; font-weight: 400; text-align: right">
+              Oct 29, 2023
+            </td>
           </tr>
         </mj-table>
-        <mj-divider padding-right="0" padding-left="0" border-width="1px" border-color="#f2f2f6" />
+        <mj-divider
+          padding-right="0"
+          padding-left="0"
+          border-width="1px"
+          border-color="#f2f2f6"
+        />
         <mj-table padding="0">
           <tr>
-            <td style="width: 84px;height: 84px">
-              <img style="width: 84px;height: 84px;border: 1px solid #000;" src="https://cdn.shopify.com/s/files/1/0613/1266/3707/products/494525216aa0db9ca8572b1faea86ca9.jpg?v=1699257678" />
+            <td style="width: 84px; height: 84px">
+              <img
+                style="width: 84px; height: 84px; border: 1px solid #000"
+                src="https://cdn.shopify.com/s/files/1/0613/1266/3707/products/494525216aa0db9ca8572b1faea86ca9.jpg?v=1699257678"
+              />
             </td>
-            <td style="font-size: 14px; font-weight: 400; text-align: right;"></td>
+            <td
+              style="font-size: 14px; font-weight: 400; text-align: right"
+            ></td>
             <td></td>
           </tr>
         </mj-table>
