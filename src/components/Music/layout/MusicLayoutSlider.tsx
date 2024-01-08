@@ -1,5 +1,5 @@
-import React from "react";
-import useMusicPlayer from "../../../atoms/account.atom";
+import React from 'react';
+import useMusicPlayer from '../../../atoms/account.atom';
 
 const MusicLayoutSlider = () => {
   const { playlist: result, playMusic } = useMusicPlayer();
@@ -14,9 +14,16 @@ const MusicLayoutSlider = () => {
               className="layout-result-item"
               onClick={() => playMusic(item)}
             >
-              <div className="result-name">{item?.name}</div>
-              <div className="result-singer" style={{ color: "#808e9b" }}>
-                {(item?.artists ?? []).map((d: any) => d.name).join(" / ")}
+              <div className="result-name">
+                {item?.name}
+                {item.alias[0] && (
+                  <span
+                    style={{ color: '#808e9b', fontWeight: 400 }}
+                  >{` - ${item.alias[0]}`}</span>
+                )}
+              </div>
+              <div className="result-singer" style={{ color: '#808e9b' }}>
+                {(item?.artists ?? []).map((d: any) => d.name).join(' / ')}
               </div>
             </div>
           );

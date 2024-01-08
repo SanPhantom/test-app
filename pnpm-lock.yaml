@@ -20,6 +20,9 @@ dependencies:
   '@types/lodash':
     specifier: ^4.14.192
     version: 4.14.192
+  '@types/ramda':
+    specifier: ^0.29.9
+    version: 0.29.9
   ahooks:
     specifier: ^3.7.6
     version: 3.7.6(react@18.2.0)
@@ -65,6 +68,9 @@ dependencies:
   san-lyric:
     specifier: ^0.2.0
     version: 0.2.0(@types/lodash@4.14.192)(@types/react-dom@18.0.11)(@types/react@18.0.29)(classnames@2.5.1)(lodash@4.17.21)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(webpack@5.89.0)
+  types-ramda:
+    specifier: ^0.29.6
+    version: 0.29.6
   vconsole:
     specifier: ^3.15.1
     version: 3.15.1
@@ -73,9 +79,6 @@ devDependencies:
   '@faker-js/faker':
     specifier: ^8.2.0
     version: 8.2.0
-  '@types/ramda':
-    specifier: ^0.29.6
-    version: 0.29.6
   '@types/react':
     specifier: ^18.0.28
     version: 18.0.29
@@ -92,8 +95,8 @@ devDependencies:
     specifier: 3.1.1
     version: 3.1.1
   typescript:
-    specifier: ^4.9.3
-    version: 4.9.5
+    specifier: ^5
+    version: 5.3.3
   vite:
     specifier: ^4.2.0
     version: 4.2.1(less@4.2.0)
@@ -1212,11 +1215,11 @@ packages:
   /@types/prop-types@15.7.8:
     resolution: {integrity: sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==}
 
-  /@types/ramda@0.29.6:
-    resolution: {integrity: sha512-4XQ9hYQhCwOxfkoTsIPvDVXc75fY5+MLQHUpExX6ByvU1q+0vOYRLSjWAt1IydkE1hOuhwMH6KvV/9rhzgrvRw==}
+  /@types/ramda@0.29.9:
+    resolution: {integrity: sha512-X3yEG6tQCWBcUAql+RPC/O1Hm9BSU+MXu2wJnCETuAgUlrEDwTA1kIOdEEE4YXDtf0zfQLHa9CCE7WYp9kqPIQ==}
     dependencies:
-      types-ramda: 0.29.5
-    dev: true
+      types-ramda: 0.29.6
+    dev: false
 
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
@@ -3641,7 +3644,7 @@ packages:
 
   /ts-toolbelt@9.6.0:
     resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
-    dev: true
+    dev: false
 
   /tslib@2.5.0:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
@@ -3713,15 +3716,15 @@ packages:
       is-typed-array: 1.1.12
     dev: false
 
-  /types-ramda@0.29.5:
-    resolution: {integrity: sha512-u+bAYXHDPJR+amB0qMrMU/NXRB2PG8QqpO2v6j7yK/0mPZhlaaZj++ynYjnVpkPEpCkZEGxNpWY3X7qyLCGE3w==}
+  /types-ramda@0.29.6:
+    resolution: {integrity: sha512-VJoOk1uYNh9ZguGd3eZvqkdhD4hTGtnjRBUx5Zc0U9ftmnCgiWcSj/lsahzKunbiwRje1MxxNkEy1UdcXRCpYw==}
     dependencies:
       ts-toolbelt: 9.6.0
-    dev: true
+    dev: false
 
-  /typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
     hasBin: true
     dev: true
 

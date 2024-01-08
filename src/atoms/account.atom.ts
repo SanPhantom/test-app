@@ -91,34 +91,30 @@ const useMusicPlayer = () => {
     setPlaylist(requestSong);
   }, [search, setPlaylist]);
 
+  const getLyrics = useCallback(async (id: string) => {
+    const lrcData = await request.get<any, any>('/lyric/new', {
+      params: {
+        id,
+      },
+    });
+    const is = !(isEmpty(lrcData?.yrc) || isNil(lrcData?.yrc));
+    setIsYRC(is);
+    setLyric(is ? lrcData.yrc?.lyric ?? '' : lrcData.lrc?.lyric ?? '');
+    setTransLyric(
+      is ? lrcData.ytlrc?.lyric ?? '' : lrcData?.tlyric?.lyric ?? ''
+    );
+  }, []);
+
   const playMusic = useCallback(async (item: any) => {
-    const { data } = await request.get<any, any>('/song/url', {
-      params: { id: item.id },
+    const { data } = await request.get<any, any>('/song/url/v1', {
+      params: { id: item.id, level: 'jymaster' },
     });
     player.src = data[0].url;
     player.load();
     updateDuration(data[0].time);
     setCurrentPlayId(item.id);
-    await player.play();
+    await Promise.all([getLyrics(item.id), player.play()]);
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (!(isEmpty(currentPlayId) || isNil(currentPlayId))) {
-        const lrcData = await request.get<any, any>('/lyric/new', {
-          params: {
-            id: currentPlayId,
-          },
-        });
-        const is = !(isEmpty(lrcData?.yrc) || isNil(lrcData?.yrc));
-        setIsYRC(is);
-        setLyric(is ? lrcData.yrc?.lyric ?? '' : lrcData.lrc?.lyric ?? '');
-        setTransLyric(
-          is ? lrcData.ytlrc?.lyric ?? '' : lrcData?.tlyric?.lyric ?? ''
-        );
-      }
-    })();
-  }, [currentPlayId]);
 
   return useMemo(
     () => ({
